@@ -1,0 +1,5 @@
+/Users/kim9099i/playgrounds/sandbox/CitadelPhysicsEngine2D/build/CMakeFiles/glad.dir
+/Users/kim9099i/playgrounds/sandbox/CitadelPhysicsEngine2D/build/CMakeFiles/imgui.dir
+/Users/kim9099i/playgrounds/sandbox/CitadelPhysicsEngine2D/build/CMakeFiles/CitadelPhysicsEngine2D.dir
+/Users/kim9099i/playgrounds/sandbox/CitadelPhysicsEngine2D/build/CMakeFiles/edit_cache.dir
+/Users/kim9099i/playgrounds/sandbox/CitadelPhysicsEngine2D/build/CMakeFiles/rebuild_cache.dir
