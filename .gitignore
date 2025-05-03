@@ -3,6 +3,7 @@
 
 # IDE / OS specific files
 .DS_Store
+.vscode/
 *.suo
 *.user
 *.userosscache
