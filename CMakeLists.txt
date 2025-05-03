@@ -39,6 +39,9 @@ target_compile_definitions(imgui PRIVATE IMGUI_IMPL_OPENGL_LOADER_GLAD)
 # GLAD와 GLFW 헤더/라이브러리를 ImGui에서 사용할 수 있도록 링크
 target_link_libraries(imgui PUBLIC glad glfw)
 
+# --- 물리 엔진 설정 ---
+add_subdirectory(physics)
+
 # --- 애플리케이션 설정 ---
 add_executable(${PROJECT_NAME}
     src/main.cpp
@@ -65,7 +68,11 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src/pch.h"
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE imgui ${OPENGL_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    imgui
+    ${OPENGL_LIBRARIES}
+    CitadelPhysicsEngine2D
+)
 
 # --- 플랫폼별 설정 (macOS) ---
 if(APPLE)
