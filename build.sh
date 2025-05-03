@@ -20,7 +20,7 @@ make
 # 빌드 성공 시 실행 파일 실행
 if [ $? -eq 0 ]; then
     echo "Build successful. Running the application..."
-    ./CitadelPhysicsEngine2D # CMakeLists.txt의 project() 이름과 일치해야 함
+    ./TinyCitadel # CMakeLists.txt의 project() 이름과 일치해야 함
 else
     echo "Build failed."
 fi

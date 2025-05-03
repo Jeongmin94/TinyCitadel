@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15) # CMake 버전에 맞게 조정
 
-project(CitadelPhysicsEngine2D LANGUAGES C CXX)
+project(TinyCitadel LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17) # C++ 표준 설정 (필요에 따라 변경)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
