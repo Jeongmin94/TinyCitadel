@@ -2,8 +2,6 @@
 
 #include "core/Application.h"
 
-#include <CitadelPhysicsEngine2D/core.h>
-
 int main(int argc, char** argv)
 {
     Citadel::Application app;
