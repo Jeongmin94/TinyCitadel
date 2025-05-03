@@ -1,5 +1,5 @@
 # Build artifacts
-build/*
+/build/
 
 # IDE / OS specific files
 .DS_Store
