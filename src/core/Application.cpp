@@ -9,8 +9,8 @@ namespace Citadel
 
 Application::Application()
 {
-    m_Window = std::make_unique<Window>();
     m_Renderer = std::make_unique<Renderer>();
+    m_Window = std::make_unique<Window>();
 }
 
 Application::~Application()
@@ -26,6 +26,8 @@ bool Application::Init()
         return true;
     }
 
+    // 0. Renderer 초기화
+
     // 1. Window 초기화 (GLFW, GLAD 포함)
     if (m_Window == nullptr || m_Window->Init() == false)
     {
@@ -33,15 +35,6 @@ bool Application::Init()
         return false;
     }
     std::cout << "Window Initialized" << std::endl;
-
-    // 2. ImGui 초기화
-    // if (InitImGui() == false)
-    // {
-    //     std::cerr << "Failed to initialize ImGui" << std::endl;
-    //     m_Window->Shutdown(); // Window 정리
-    //     return false;
-    // }
-    // std::cout << "ImGui Initialized" << std::endl;
 
     m_LayerStack.PushOverlay(
         std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
@@ -90,7 +83,7 @@ void Application::Shutdown()
     m_LayerStack.Clear();
 
     // 2. Window 종료 (GLFW 종료 포함)
-    if (m_Window)
+    if (m_Window != nullptr)
     {
         m_Window->Shutdown();
         m_Window.reset(); // unique_ptr 명시적 리셋
@@ -98,7 +91,7 @@ void Application::Shutdown()
     }
 
     // 3. Renderer 종료 (필요하다면)
-    if (m_Renderer)
+    if (m_Renderer != nullptr)
     {
         // m_Renderer->Shutdown(); // Renderer에 종료 로직이 있다면 호출
         m_Renderer.reset(); // unique_ptr 명시적 리셋

@@ -8,6 +8,7 @@ namespace Citadel
 {
 
 Renderer::Renderer() {}
+
 Renderer::~Renderer() {}
 
 void Renderer::BeginFrame(const Window& window)
