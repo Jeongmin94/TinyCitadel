@@ -1,9 +1,6 @@
-#include <glad/glad.h>
+#include "pch.h"
 
 #include "Window.h"
-
-#include <GLFW/glfw3.h>
-#include <iostream> // For error logging
 
 namespace Citadel
 {

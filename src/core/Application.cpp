@@ -1,10 +1,7 @@
-#include <glad/glad.h> // GLAD를 가장 먼저 include
+#include "pch.h"
 
 #include "Application.h"
-
-#include <GLFW/glfw3.h> // For GetNativeWindow return type
-
-#include <iostream>
+#include "Window.h"
 
 namespace Citadel
 {

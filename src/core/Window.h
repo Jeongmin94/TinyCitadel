@@ -8,7 +8,6 @@ struct GLFWwindow;
 namespace Citadel
 {
 
-// Window 속성 구조체 (클래스 밖으로 이동)
 struct WindowProps
 {
     std::string Title = "Citadel Physics Engine 2D";

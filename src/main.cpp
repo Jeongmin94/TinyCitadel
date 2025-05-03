@@ -1,6 +1,6 @@
-#include "core/Application.h"
+#include "pch.h"
 
-#include <iostream>
+#include "core/Application.h"
 
 int main(int argc, char** argv)
 {
