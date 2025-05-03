@@ -9,7 +9,10 @@ namespace Citadel
 
 ImGuiLayer::ImGuiLayer() {}
 
-ImGuiLayer::ImGuiLayer(const Window* window) { m_WindowHandle = window; }
+ImGuiLayer::ImGuiLayer(const std::string& name, const Window* window)
+    : Layer(name), m_WindowHandle(window)
+{
+}
 
 ImGuiLayer::~ImGuiLayer() {}
 

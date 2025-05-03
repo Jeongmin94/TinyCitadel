@@ -2,6 +2,8 @@
 
 #include "core/Layer.h"
 
+#include <string>
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -17,7 +19,7 @@ class ImGuiLayer : public Layer
 {
 public:
     ImGuiLayer();
-    ImGuiLayer(const Window* window);
+    ImGuiLayer(const std::string& name, const Window* window);
     ~ImGuiLayer() override;
 
 public:

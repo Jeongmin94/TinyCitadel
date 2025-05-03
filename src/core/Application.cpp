@@ -43,7 +43,8 @@ bool Application::Init()
     // }
     // std::cout << "ImGui Initialized" << std::endl;
 
-    m_LayerStack.PushOverlay(std::make_unique<ImGuiLayer>(m_Window.get()));
+    m_LayerStack.PushOverlay(
+        std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
 
     m_Initialized = true;
     m_Running = true;
