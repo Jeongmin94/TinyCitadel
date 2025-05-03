@@ -21,20 +21,20 @@ Window::~Window()
 
 bool Window::Init()
 {
-    if (m_Initialized)
+    if (m_Initialized == true)
     {
         std::cerr << "Window already initialized!" << std::endl;
-        return true; // 이미 초기화됨
+        return true;
     }
 
     std::cout << "Creating window " << m_Data.Title << " (" << m_Data.Width
               << ", " << m_Data.Height << ")" << std::endl;
 
     // --- GLFW 초기화 ---
-    if (!s_GLFWInitialized)
+    if (s_GLFWInitialized == false)
     {
         glfwSetErrorCallback(GlfwErrorCallback);
-        if (!glfwInit())
+        if (glfwInit() == false)
         {
             std::cerr << "Failed to initialize GLFW" << std::endl;
             return false;
@@ -64,8 +64,8 @@ bool Window::Init()
     glfwMakeContextCurrent(m_Window);
     glfwSwapInterval(1); // VSync 활성화
 
-    // --- GLAD 초기화 (창 생성 및 컨텍스트 설정 후) ---
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    // --- GLAD 초기화 (GLFW 창 생성 및 컨텍스트 설정 후) ---
+    if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) == false)
     {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         glfwDestroyWindow(m_Window);
@@ -76,8 +76,8 @@ bool Window::Init()
     std::cout << "OpenGL Renderer: " << glGetString(GL_RENDERER) << std::endl;
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
-    glfwSetWindowUserPointer(
-        m_Window, &m_Data); // 콜백에서 데이터 접근용 (지금은 사용 안함)
+    // 콜백에서 데이터 접근용
+    glfwSetWindowUserPointer(m_Window, &m_Data);
 
     // 필요한 콜백 설정 (예: 창 크기 변경)
     // glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int
@@ -96,19 +96,19 @@ bool Window::Init()
 
 void Window::Shutdown()
 {
-    if (!m_Initialized)
+    if (m_Initialized == false)
         return;
 
-    if (m_Window)
+    if (m_Window != nullptr)
     {
         glfwDestroyWindow(m_Window);
         m_Window = nullptr;
         std::cout << "GLFW Window Destroyed" << std::endl;
     }
 
-    // 애플리케이션 종료 시 한번만 호출되도록 관리 필요 (여기서는 단순화)
+    // 애플리케이션 종료 시 한번만 호출되도록 관리 필요
     // 만약 여러 윈도우를 관리한다면 s_GLFWInitialized 관리가 더 복잡해짐
-    if (s_GLFWInitialized)
+    if (s_GLFWInitialized == true)
     {
         glfwTerminate();
         s_GLFWInitialized = false;
@@ -119,16 +119,18 @@ void Window::Shutdown()
 
 void Window::OnUpdate()
 {
-    if (!m_Initialized)
+    if (m_Initialized == false)
         return;
+
     glfwPollEvents();
     glfwSwapBuffers(m_Window);
 }
 
 bool Window::ShouldClose() const
 {
-    if (!m_Initialized || !m_Window)
+    if (m_Initialized == false || m_Window == nullptr)
         return true;
+
     return glfwWindowShouldClose(m_Window);
 }
 

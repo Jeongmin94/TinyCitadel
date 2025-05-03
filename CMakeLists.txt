@@ -44,6 +44,10 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/core/Application.cpp
     src/core/Window.cpp
+    src/core/Layer.cpp
+    src/core/LayerStack.cpp
+    src/layers/ImGuiLayer.cpp
+    src/core/Renderer.cpp
 )
 
 # 애플리케이션에 필요한 include 경로 추가

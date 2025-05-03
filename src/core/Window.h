@@ -2,7 +2,6 @@
 
 #include <string>
 
-// Forward declaration
 struct GLFWwindow;
 
 namespace Citadel
@@ -11,22 +10,25 @@ namespace Citadel
 struct WindowProps
 {
     std::string Title = "Citadel Physics Engine 2D";
-    unsigned int Width = 1280;
-    unsigned int Height = 720;
+    uint32_t Width = 1280;
+    uint32_t Height = 720;
 };
 
 class Window
 {
+
 public:
     Window(const WindowProps& props = WindowProps());
     virtual ~Window();
 
+private:
     // 복사 및 이동 금지
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
     Window(Window&&) = delete;
     Window& operator=(Window&&) = delete;
 
+public:
     bool Init();
     void Shutdown();
 
