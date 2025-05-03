@@ -22,7 +22,7 @@ git submodule add https://github.com/ocornut/imgui.git vendor/imgui
 # git add vendor/imgui # 변경된 브랜치 정보 커밋
 
 # 서브모듈 초기화 및 업데이트 (다른 사람이 저장소를 클론한 후 실행)
-# git clone --recurse-submodules <your-project-repo-url> # 처음 클론할 때
+# git clone --recurse-submodules https://github.com/Jeongmin94/CitadelPhysicsEngine2D.git # 처음 클론할 때
 # 또는
 # git submodule update --init --recursive # 이미 클론한 경우
 ```

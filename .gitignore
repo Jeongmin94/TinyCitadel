@@ -1,0 +1,11 @@
+# Build artifacts
+build/*
+
+# IDE / OS specific files
+.DS_Store
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.filters
+*.vcxproj.user 

@@ -40,12 +40,17 @@ target_compile_definitions(imgui PRIVATE IMGUI_IMPL_OPENGL_LOADER_GLAD)
 target_link_libraries(imgui PUBLIC glad glfw)
 
 # --- 애플리케이션 설정 ---
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    src/core/Application.cpp
+    src/core/Window.cpp
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE imgui ${OPENGL_LIBRARIES})
 
 # 애플리케이션에 필요한 include 경로 추가
 target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
     # ${GLFW_INCLUDE_DIRS} # glfw3::glfw 링크 통해 상속됨
     # ${GLAD_DIR}/include # glad 링크 통해 상속됨
     # ${IMGUI_DIR} # imgui 링크 통해 상속됨
