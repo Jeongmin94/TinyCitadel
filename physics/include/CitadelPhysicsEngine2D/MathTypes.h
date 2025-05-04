@@ -18,4 +18,13 @@ struct Vec2
 
 // 여기에 다른 수학 관련 타입 (예: Mat2x2 등)을 추가할 수도 있습니다.
 
+namespace CitadelMath
+{
+
+float Distance(const Vec2& a, const Vec2& b);
+
+float Square(float x);
+
+} // namespace CitadelMath
+
 } // namespace CitadelPhysicsEngine2D

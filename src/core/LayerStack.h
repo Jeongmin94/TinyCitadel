@@ -21,6 +21,9 @@ public:
     void PopLayer(Layer* layer);
     void PopOverlay(Layer* overlay);
 
+public:
+    bool ValidateLayers();
+
     // 반복자 제공 (Application의 Run 루프에서 사용)
     std::vector<std::unique_ptr<Layer>>::iterator begin()
     {

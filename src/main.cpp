@@ -2,8 +2,15 @@
 
 #include "core/Application.h"
 
+namespace CitadelPhysicsEngine2D
+{
+void RunPhysicsTests();
+}
+
 int main(int argc, char** argv)
 {
+    CitadelPhysicsEngine2D::RunPhysicsTests();
+
     Citadel::Application app;
 
     try

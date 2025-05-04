@@ -77,4 +77,6 @@ void LayerStack::PopOverlay(Layer* overlay)
     }
 }
 
+bool LayerStack::ValidateLayers() { return true; }
+
 } // namespace Citadel

@@ -5,6 +5,14 @@ add_library(${PHYSICS_LIB} STATIC)
 # 물리 엔진 소스 파일 추가
 target_sources(${PHYSICS_LIB} PRIVATE
     src/core.cpp
+    src/AABB.cpp
+    src/MathTypes.cpp
+
+    # tests
+    src/PhysicsTests.cpp
+
+    # shapes
+    src/shapes/Circle.cpp
 )
 
 target_include_directories(${PHYSICS_LIB} PUBLIC

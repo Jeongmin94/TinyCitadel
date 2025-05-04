@@ -36,8 +36,16 @@ bool Application::Init()
     }
     std::cout << "Window Initialized" << std::endl;
 
+    // 2. LayerStack 초기화
     m_LayerStack.PushOverlay(
         std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
+
+    // 3. LayerStack 검증
+    if (m_LayerStack.ValidateLayers() == false)
+    {
+        std::cerr << "Failed to validate LayerStack" << std::endl;
+        return false;
+    }
 
     m_Initialized = true;
     m_Running = true;
