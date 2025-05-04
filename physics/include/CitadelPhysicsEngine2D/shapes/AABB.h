@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MathTypes.h"
+#include <CitadelPhysicsEngine2D/MathTypes.h>
 
 namespace CitadelPhysicsEngine2D
 {

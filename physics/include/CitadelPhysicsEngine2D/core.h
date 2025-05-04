@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AABB.h"
 #include "MathTypes.h"
 
+#include "shapes/AABB.h"
 #include "shapes/Circle.h"

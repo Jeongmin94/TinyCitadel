@@ -1,4 +1,4 @@
-#include <CitadelPhysicsEngine2D/AABB.h>
+#include <CitadelPhysicsEngine2D/shapes/AABB.h>
 
 namespace CitadelPhysicsEngine2D
 {
