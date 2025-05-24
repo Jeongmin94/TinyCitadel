@@ -1,8 +1,11 @@
 #pragma once
 
 #include <algorithm>
+#include <filesystem> // std::filesystem::current_path() C++17 이상
+#include <fstream>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <string>
 
 // clang-format off

@@ -20,13 +20,16 @@ Application::~Application()
 
 bool Application::Init()
 {
+    // --- 현재 작업 디렉토리 출력 ---
+    std::cout << "Current Working Directory: "
+              << std::filesystem::current_path() << std::endl;
+    // -------------------------------
+
     if (m_Initialized == true)
     {
         std::cerr << "Application already initialized!" << std::endl;
         return true;
     }
-
-    // 0. Renderer 초기화
 
     // 1. Window 초기화 (GLFW, GLAD 포함)
     if (m_Window == nullptr || m_Window->Init() == false)
@@ -36,11 +39,19 @@ bool Application::Init()
     }
     std::cout << "Window Initialized" << std::endl;
 
-    // 2. LayerStack 초기화
+    // 2. Renderer 초기화
+    if (m_Renderer == nullptr || m_Renderer->Init(m_Window.get()) == false)
+    {
+        std::cerr << "Failed to initialize Renderer" << std::endl;
+        return false;
+    }
+    std::cout << "Renderer Initialized" << std::endl;
+
+    // 3. LayerStack 초기화
     m_LayerStack.PushOverlay(
         std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
 
-    // 3. LayerStack 검증
+    // 4. LayerStack 검증
     if (m_LayerStack.ValidateLayers() == false)
     {
         std::cerr << "Failed to validate LayerStack" << std::endl;
@@ -63,7 +74,7 @@ void Application::Run()
 
     while (m_Running == true && m_Window->ShouldClose() == false)
     {
-        m_Renderer->BeginFrame(*m_Window);
+        m_Renderer->BeginFrame();
 
         for (auto& layer : m_LayerStack)
         {

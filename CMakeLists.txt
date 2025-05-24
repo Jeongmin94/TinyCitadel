@@ -5,6 +5,21 @@ project(TinyCitadel LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17) # C++ 표준 설정 (필요에 따라 변경)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# --- 실행 파일 타겟 이름 (PROJECT_NAME과 동일) ---
+set(EXECUTABLE_NAME ${PROJECT_NAME})
+
+# --- 에셋(Assets) 디렉토리 복사 설정 ---
+set(ASSETS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/assets)
+
+# 실행 파일이 생성될 디렉토리 설정 (싱글-구성 생성기용)
+if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+    set(RUNTIME_OUTPUT_DIR ${CMAKE_BINARY_DIR}) # 기본값은 빌드 디렉토리
+else()
+    set(RUNTIME_OUTPUT_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}) # 설정된 값 사용
+endif()
+
+set(ASSETS_DESTINATION_DIR ${RUNTIME_OUTPUT_DIR}/assets)
+
 # --- 의존성 찾기 ---
 
 # GLFW 찾기 (Homebrew 경로에서 찾도록 시도)
@@ -43,7 +58,7 @@ target_link_libraries(imgui PUBLIC glad glfw)
 add_subdirectory(physics)
 
 # --- 애플리케이션 설정 ---
-add_executable(${PROJECT_NAME}
+add_executable(${EXECUTABLE_NAME}
     src/main.cpp
     src/core/Application.cpp
     src/core/Window.cpp
@@ -54,7 +69,7 @@ add_executable(${PROJECT_NAME}
 )
 
 # 애플리케이션에 필요한 include 경로 추가
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(${EXECUTABLE_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     # ${GLFW_INCLUDE_DIRS} # glfw3::glfw 링크 통해 상속됨
     # ${GLAD_DIR}/include # glad 링크 통해 상속됨
@@ -64,18 +79,32 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     # 명시적으로 필요한 다른 경로가 있다면 여기에 추가
 )
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE
+target_precompile_headers(${EXECUTABLE_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src/pch.h"
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE 
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE 
     imgui
     ${OPENGL_LIBRARIES}
     CitadelPhysicsEngine2D
 )
 
+# --- 에셋 복사 명령 (add_executable 이후에 위치) ---
+if(EXISTS ${ASSETS_SOURCE_DIR} AND TARGET ${EXECUTABLE_NAME})
+    message(STATUS "Source assets directory: ${ASSETS_SOURCE_DIR}")
+    message(STATUS "Destination assets directory for copy: ${ASSETS_DESTINATION_DIR}")
+    add_custom_command(TARGET ${EXECUTABLE_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+        ${ASSETS_SOURCE_DIR}
+        ${ASSETS_DESTINATION_DIR}
+        COMMENT "Copying assets directory to output directory for ${EXECUTABLE_NAME}"
+    )
+else()
+    message(WARNING "Assets source directory (${ASSETS_SOURCE_DIR}) does not exist, or target ${EXECUTABLE_NAME} not found yet.")
+endif()
+
 # --- 플랫폼별 설정 (macOS) ---
 if(APPLE)
     # macOS 프레임워크 링크
-    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Cocoa -framework IOKit -framework OpenGL -framework CoreVideo")
+    target_link_libraries(${EXECUTABLE_NAME} PRIVATE "-framework Cocoa -framework IOKit -framework OpenGL -framework CoreVideo")
 endif()
