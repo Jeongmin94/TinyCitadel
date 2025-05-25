@@ -59,15 +59,15 @@ bool Renderer::Init(const Window* window)
         return false;
     }
 
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, m_TriangleVertexShaderID);
-    glAttachShader(shaderProgram, m_TriangleFragmentShaderID);
-    glLinkProgram(shaderProgram);
+    m_ShaderProgramID = glCreateProgram();
+    glAttachShader(m_ShaderProgramID, m_TriangleVertexShaderID);
+    glAttachShader(m_ShaderProgramID, m_TriangleFragmentShaderID);
+    glLinkProgram(m_ShaderProgramID);
 
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    glGetProgramiv(m_ShaderProgramID, GL_LINK_STATUS, &success);
     if (success == false)
     {
-        glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
+        glGetProgramInfoLog(m_ShaderProgramID, 512, nullptr, infoLog);
         std::cerr << "Shader Program Link Error: " << infoLog << std::endl;
         return false;
     }
@@ -104,7 +104,32 @@ void Renderer::BeginFrame()
     glClearColor(m_ClearColor.x * m_ClearColor.w,
                  m_ClearColor.y * m_ClearColor.w,
                  m_ClearColor.z * m_ClearColor.w, m_ClearColor.w);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
+void Renderer::RenderTriangle()
+{
+    // After BeginFrame
+
+    // 1. 뷰포트 설정
+    // BeginFrame에서 설정됨
+
+    // 2. 쉐이더 프로그램 활성화
+
+    glUseProgram(m_ShaderProgramID);
+
+    // 3. VAO 활성화
+
+    glBindVertexArray(m_TriangleVAO);
+
+    // 4. 드로우 콜
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    // 5. 해제
+
+    glBindVertexArray(0);
+    glUseProgram(0);
 }
 
 std::vector<Vec2> Renderer::CreateTriangleVertices()
@@ -113,21 +138,9 @@ std::vector<Vec2> Renderer::CreateTriangleVertices()
 
     std::vector<Vec2> triangleVertices;
 
-    float halfWidth = 0.5f;
-    float height = 0.5f;
-
-    Vec2 center = {m_Window->GetWidth() / 2.0f, m_Window->GetHeight() / 2.0f};
-
-    // left bottom
-    triangleVertices.push_back(
-        {center.x - halfWidth, center.y - height / 2.0f});
-
-    // right bottom
-    triangleVertices.push_back(
-        {center.x + halfWidth, center.y - height / 2.0f});
-
-    // center top
-    triangleVertices.push_back({center.x, center.y + height / 2.0f});
+    triangleVertices.push_back({-0.25f, -0.25f}); // 왼쪽 아래
+    triangleVertices.push_back({0.25f, -0.25f});  // 오른쪽 아래
+    triangleVertices.push_back({0.0f, 0.25f});    // 위쪽 중앙
 
     return triangleVertices;
 }

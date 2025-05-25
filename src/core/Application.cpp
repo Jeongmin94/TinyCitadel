@@ -40,6 +40,9 @@ bool Application::Init()
     std::cout << "Window Initialized" << std::endl;
 
     // 2. Renderer 초기화
+    // - window 초기화
+    // - shader 초기화
+    // - VAO, VBO 초기화
     if (m_Renderer == nullptr || m_Renderer->Init(m_Window.get()) == false)
     {
         std::cerr << "Failed to initialize Renderer" << std::endl;
@@ -85,6 +88,7 @@ void Application::Run()
         {
             layer->OnRender();
         }
+        m_Renderer->RenderTriangle();
 
         // --- Window 업데이트 (이벤트 폴링 + 버퍼 스왑) ---
         m_Window->OnUpdate();

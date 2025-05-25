@@ -28,6 +28,9 @@ public:
     // 프레임 시작 시 호출 (뷰포트 설정, 화면 클리어)
     void BeginFrame();
 
+    // 렌더링 함수
+    void RenderTriangle();
+
     // 클리어 색상 설정/조회
     void SetClearColor(const ImVec4& color) { m_ClearColor = color; }
     const ImVec4& GetClearColor() const { return m_ClearColor; }
@@ -50,6 +53,7 @@ private:
 
     GLuint m_TriangleVertexShaderID;
     GLuint m_TriangleFragmentShaderID;
+    GLuint m_ShaderProgramID;
 };
 
 } // namespace Citadel
