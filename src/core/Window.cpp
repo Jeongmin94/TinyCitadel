@@ -80,15 +80,26 @@ bool Window::Init()
     glfwSetWindowUserPointer(m_Window, &m_Data);
 
     // 필요한 콜백 설정 (예: 창 크기 변경)
-    // glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int
-    // width, int height) {
-    //     WindowProps& data = *(WindowProps*)glfwGetWindowUserPointer(window);
-    //     data.Width = width;
-    //     data.Height = height;
-    //     glViewport(0, 0, width, height);
-    //     std::cout << "Framebuffer resized: (" << width << ", " << height <<
-    //     ")" << std::endl;
-    // });
+    // // 물리 사이즈 변경
+    // glfwSetFramebufferSizeCallback(
+    //     m_Window,
+    //     [](GLFWwindow* window, int width, int height)
+    //     {
+    //         glViewport(0, 0, width, height);
+    //         std::cout << "Framebuffer resized via callback: (" << width << ",
+    //         "
+    //                   << height << ")" << std::endl;
+    //     });
+
+    // // 논리 사이즈 변경
+    // glfwSetWindowSizeCallback(m_Window,
+    //                           [](GLFWwindow* window, int width, int height)
+    //                           {
+    //                               std::cout << "Window resized via callback:
+    //                               ("
+    //                                         << width << ", " << height << ")"
+    //                                         << std::endl;
+    //                           });
 
     m_Initialized = true;
     return true;

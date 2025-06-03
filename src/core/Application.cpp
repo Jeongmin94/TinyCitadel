@@ -51,15 +51,15 @@ bool Application::Init()
     std::cout << "Renderer Initialized" << std::endl;
 
     // 3. LayerStack 초기화
-    m_LayerStack.PushOverlay(
-        std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
+    // m_LayerStack.PushOverlay(
+    //     std::make_unique<ImGuiLayer>("ImGuiLayer", m_Window.get()));
 
-    // 4. LayerStack 검증
-    if (m_LayerStack.ValidateLayers() == false)
-    {
-        std::cerr << "Failed to validate LayerStack" << std::endl;
-        return false;
-    }
+    // // 4. LayerStack 검증
+    // if (m_LayerStack.ValidateLayers() == false)
+    // {
+    //     std::cerr << "Failed to validate LayerStack" << std::endl;
+    //     return false;
+    // }
 
     m_Initialized = true;
     m_Running = true;
@@ -75,6 +75,7 @@ void Application::Run()
         return;
     }
 
+    m_Renderer->SetViewport();
     while (m_Running == true && m_Window->ShouldClose() == false)
     {
         m_Renderer->BeginFrame();

@@ -96,14 +96,19 @@ bool Renderer::Init(const Window* window)
     return true;
 }
 
-void Renderer::BeginFrame()
+void Renderer::SetViewport()
 {
     int display_w, display_h;
     glfwGetFramebufferSize(m_Window->GetNativeWindow(), &display_w, &display_h);
-    glViewport(0, 0, display_w, display_h);
+    glViewport(0, 0, 400, 300);
+}
+
+void Renderer::BeginFrame()
+{
     glClearColor(m_ClearColor.x * m_ClearColor.w,
                  m_ClearColor.y * m_ClearColor.w,
                  m_ClearColor.z * m_ClearColor.w, m_ClearColor.w);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 

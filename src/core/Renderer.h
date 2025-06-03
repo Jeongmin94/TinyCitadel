@@ -26,6 +26,7 @@ public:
     // void Shutdown();
 
     // 프레임 시작 시 호출 (뷰포트 설정, 화면 클리어)
+    void SetViewport();
     void BeginFrame();
 
     // 렌더링 함수
