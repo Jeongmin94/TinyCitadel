@@ -96,7 +96,7 @@ if(EXISTS ${ASSETS_SOURCE_DIR} AND TARGET ${EXECUTABLE_NAME})
     add_custom_command(TARGET ${EXECUTABLE_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
         ${ASSETS_SOURCE_DIR}
-        ${ASSETS_DESTINATION_DIR}
+        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/assets" 
         COMMENT "Copying assets directory to output directory for ${EXECUTABLE_NAME}"
     )
 else()
