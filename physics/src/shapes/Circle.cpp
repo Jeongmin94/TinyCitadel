@@ -17,8 +17,7 @@ bool Circle::CirclevsCircle(const Circle& a, const Circle& b)
     float x = a.position.x - b.position.x;
     float y = a.position.y - b.position.y;
 
-    return CitadelMath::Square(r) <
-           (CitadelMath::Square(x) + CitadelMath::Square(y));
+    return (r * r) < ((x * x) + (y * y));
 }
 
 } // namespace CitadelPhysicsEngine2D

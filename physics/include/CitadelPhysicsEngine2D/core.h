@@ -1,6 +1,7 @@
 #pragma once
 
-#include "MathTypes.h"
+#include "math/EngineMath.h"
 
-#include "shapes/AABB.h"
-#include "shapes/Circle.h"
+#include "shapes/Shapes.h"
+
+namespace CPE2D = CitadelPhysicsEngine2D;

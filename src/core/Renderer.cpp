@@ -77,17 +77,18 @@ bool Renderer::Init(const Window* window)
     glDeleteShader(m_TriangleFragmentShaderID);
 
     // 3. VAO, VBO 초기화
-    std::vector<Vec2> triangleVertices = CreateTriangleVertices();
+    std::vector<glm::vec2> triangleVertices = CreateTriangleVertices();
 
     glGenVertexArrays(1, &m_TriangleVAO);
     glBindVertexArray(m_TriangleVAO);
 
     glGenBuffers(1, &m_TriangleVBO);
     glBindBuffer(GL_ARRAY_BUFFER, m_TriangleVBO);
-    glBufferData(GL_ARRAY_BUFFER, triangleVertices.size() * sizeof(Vec2),
+    glBufferData(GL_ARRAY_BUFFER, triangleVertices.size() * sizeof(glm::vec2),
                  triangleVertices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vec2), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2),
+                          (void*)0);
     glEnableVertexAttribArray(0);
 
     glBindVertexArray(0);
@@ -100,7 +101,7 @@ void Renderer::SetViewport()
 {
     int display_w, display_h;
     glfwGetFramebufferSize(m_Window->GetNativeWindow(), &display_w, &display_h);
-    glViewport(0, 0, 400, 300);
+    glViewport(0, 0, display_w, display_h);
 }
 
 void Renderer::BeginFrame()
@@ -137,11 +138,11 @@ void Renderer::RenderTriangle()
     glUseProgram(0);
 }
 
-std::vector<Vec2> Renderer::CreateTriangleVertices()
+std::vector<glm::vec2> Renderer::CreateTriangleVertices()
 {
     using namespace CitadelPhysicsEngine2D;
 
-    std::vector<Vec2> triangleVertices;
+    std::vector<glm::vec2> triangleVertices;
 
     triangleVertices.push_back({-0.25f, -0.25f}); // 왼쪽 아래
     triangleVertices.push_back({0.25f, -0.25f});  // 오른쪽 아래

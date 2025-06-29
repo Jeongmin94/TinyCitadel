@@ -75,9 +75,10 @@ void Application::Run()
         return;
     }
 
-    m_Renderer->SetViewport();
     while (m_Running == true && m_Window->ShouldClose() == false)
     {
+        m_Renderer->SetViewport();
+
         m_Renderer->BeginFrame();
 
         for (auto& layer : m_LayerStack)

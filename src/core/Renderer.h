@@ -39,7 +39,7 @@ public:
 private:
     // 2D 도형을 그리기 위한 임시 함수
 
-    std::vector<Vec2> CreateTriangleVertices();
+    std::vector<glm::vec2> CreateTriangleVertices();
 
     // 지정된 경로의 파일을 읽어 std::string으로 반환하는 함수
     std::string ReadFileAsString(const std::string& filePath);

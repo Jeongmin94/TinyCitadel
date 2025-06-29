@@ -10,3 +10,6 @@
 *.sln.docstates
 *.vcxproj.filters
 *.vcxproj.user 
+
+# cursor
+.cursor/
