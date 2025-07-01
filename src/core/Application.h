@@ -1,13 +1,14 @@
 #pragma once
 
-#include "LayerStack.h"
-#include "Renderer.h"
-#include "Window.h"
+#include "layers/LayerStack.h"
 
 #include <memory>
 
 namespace Citadel
 {
+
+class Renderer;
+class Window;
 
 class Application
 {

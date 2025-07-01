@@ -60,17 +60,26 @@ add_subdirectory(physics)
 # --- 애플리케이션 설정 ---
 add_executable(${EXECUTABLE_NAME}
     src/main.cpp
+
     src/core/Application.cpp
     src/core/Window.cpp
-    src/core/Layer.cpp
-    src/core/LayerStack.cpp
+
+    src/layers/Layer.cpp
     src/layers/ImGuiLayer.cpp
-    src/core/Renderer.cpp
+    src/layers/LayerStack.cpp
+
+    src/renderer/Renderer.cpp
+    src/renderer/ShapeRenderer.cpp
+    src/renderer/ShapeFactory.cpp
+    src/renderer/Mesh.cpp
 )
 
 # 애플리케이션에 필요한 include 경로 추가
 target_include_directories(${EXECUTABLE_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    # ${CMAKE_CURRENT_SOURCE_DIR}/layers
+    # ${CMAKE_CURRENT_SOURCE_DIR}/renderer
+
     # ${GLFW_INCLUDE_DIRS} # glfw3::glfw 링크 통해 상속됨
     # ${GLAD_DIR}/include # glad 링크 통해 상속됨
     # ${IMGUI_DIR} # imgui 링크 통해 상속됨

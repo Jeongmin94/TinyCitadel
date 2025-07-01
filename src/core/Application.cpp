@@ -1,8 +1,9 @@
 #include "pch.h"
 
 #include "Application.h"
-#include "LayerStack.h"
-#include "layers/ImGuiLayer.h"
+
+#include "Window.h"
+#include "renderer/Renderer.h"
 
 namespace Citadel
 {
@@ -90,7 +91,7 @@ void Application::Run()
         {
             layer->OnRender();
         }
-        m_Renderer->RenderTriangle();
+        m_Renderer->Render();
 
         // --- Window 업데이트 (이벤트 폴링 + 버퍼 스왑) ---
         m_Window->OnUpdate();
