@@ -17,11 +17,14 @@ bool Renderer::Init(const Window* window)
     // 1. Window 초기화
     m_Window = window;
 
-    m_TriangleMesh = ShapeFactory::CreateTriangle();
+    m_Mesh = ShapeFactory::CreateTriangle();
+    // m_Mesh = ShapeFactory::CreateCircle();
     m_ShapeRenderer.Init();
 
     return true;
 }
+
+void Renderer::Shutdown() { m_ShapeRenderer.Shutdown(); }
 
 void Renderer::SetViewport()
 {
@@ -41,7 +44,7 @@ void Renderer::BeginFrame()
 
 void Renderer::Render()
 {
-    m_ShapeRenderer.Draw(m_TriangleMesh, {0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f,
+    m_ShapeRenderer.Draw(m_Mesh, {0.0f, 0.0f}, {1.0f, 1.0f}, 0.0f,
                          {1.0f, 0.0f, 0.0f, 1.0f});
 }
 

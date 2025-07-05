@@ -119,8 +119,8 @@ void Application::Shutdown()
     // 3. Renderer 종료 (필요하다면)
     if (m_Renderer != nullptr)
     {
-        // m_Renderer->Shutdown(); // Renderer에 종료 로직이 있다면 호출
-        m_Renderer.reset(); // unique_ptr 명시적 리셋
+        m_Renderer->Shutdown(); // Renderer에 종료 로직이 있다면 호출
+        m_Renderer.reset();     // unique_ptr 명시적 리셋
         std::cout << "Renderer Shutdown" << std::endl;
     }
 

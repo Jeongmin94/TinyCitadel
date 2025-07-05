@@ -11,7 +11,8 @@
 
 ### Windows
 
-- Visual Studio 2022 C++
+- Visual Studio 2022 C++(for MSVC C/CXX compiler)
+- Windows SDK
 - vcpkg
 - vcpkg로 설치한 glfw3:x64-windows
 

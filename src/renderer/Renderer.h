@@ -26,7 +26,7 @@ public:
 public:
     // 초기화/종료 (필요하다면 구현)
     bool Init(const Window* window);
-    // void Shutdown();
+    void Shutdown();
 
     // 프레임 시작 시 호출 (뷰포트 설정, 화면 클리어)
     void SetViewport();
@@ -45,7 +45,7 @@ private:
     const Window* m_Window;
 
 private:
-    Mesh m_TriangleMesh;
+    Mesh m_Mesh;
     ShapeRenderer m_ShapeRenderer;
 };
 

@@ -10,7 +10,7 @@ class ShapeFactory
 public:
     static Mesh CreateTriangle();
 
-    static Mesh CreateCircle(int segments = 50);
+    static Mesh CreateCircle(GLuint segments = 50);
 
     static void DestroyMesh(Mesh& mesh);
 };
