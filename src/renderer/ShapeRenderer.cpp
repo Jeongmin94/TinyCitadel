@@ -90,7 +90,7 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
     // This is a placeholder for actual uniform setting code.
 
     // Draw the mesh
-    glDrawArrays(GL_TRIANGLES, 0, mesh.drawCount);
+    glDrawElements(GL_TRIANGLES, mesh.indexCount, GL_UNSIGNED_INT, (void*)0);
 
     // Unbind the VAO and shader program
     glBindVertexArray(0);

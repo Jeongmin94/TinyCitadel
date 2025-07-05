@@ -14,5 +14,5 @@ struct Mesh
     GLuint VBO = 0;
     GLuint EBO = 0;
 
-    GLsizei drawCount = 0;
+    GLuint indexCount = 0;
 };
