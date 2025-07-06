@@ -17,8 +17,8 @@ bool Renderer::Init(const Window* window)
     // 1. Window 초기화
     m_Window = window;
 
-    // m_Mesh = ShapeFactory::CreateTriangle();
-    m_Mesh = ShapeFactory::CreateCircle();
+    m_Mesh = ShapeFactory::CreateTriangle();
+    // m_Mesh = ShapeFactory::CreateCircle();
     m_ShapeRenderer.Init();
 
     return true;

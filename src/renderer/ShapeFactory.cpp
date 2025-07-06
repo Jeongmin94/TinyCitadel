@@ -9,12 +9,13 @@ Mesh ShapeFactory::CreateTriangle()
 {
     Mesh mesh;
 
-    GLuint indices[] = {0, 1, 2};
     std::vector<glm::vec3> vertices{
         glm::vec3(0.5f, -0.5f, 0.0f),  // right bottom
         glm::vec3(0.0f, 0.5f, 0.0f),   // center top
         glm::vec3(-0.5f, -0.5f, 0.0f), // left bottom
     };
+
+    std::vector<GLuint> indices{0, 1, 2};
 
     glGenVertexArrays(1, &mesh.VAO);
     glGenBuffers(1, &mesh.VBO);
@@ -27,8 +28,8 @@ Mesh ShapeFactory::CreateTriangle()
                  vertices.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices) * sizeof(GLuint),
-                 indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
+                 indices.data(), GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3),
                           (void*)0);
@@ -41,10 +42,9 @@ Mesh ShapeFactory::CreateTriangle()
     return mesh;
 };
 
-Mesh ShapeFactory::CreateCircle(GLuint segments)
+Mesh ShapeFactory::CreateCircle(GLuint segments, GLfloat radius)
 {
     Mesh mesh;
-    GLfloat radius = 0.5f;
 
     std::vector<glm::vec3> vertices;
     vertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
