@@ -2,6 +2,8 @@
 
 #include "ShapeRenderer.h"
 
+#include "utils/FileUtils.h"
+
 namespace Citadel
 {
 
@@ -10,9 +12,9 @@ void ShapeRenderer::Init()
     // Shader 초기화
     // TODO: 쉐이더를 선택해서 받을 수 있게 해야함
     std::string vertexShaderCode =
-        ReadFileAsString("assets/shaders/triangle.vert");
+        FileUtils::ReadFileAsString("assets/shaders/triangle.vert");
     std::string fragmentShaderCode =
-        ReadFileAsString("assets/shaders/triangle.frag");
+        FileUtils::ReadFileAsString("assets/shaders/triangle.frag");
 
     if (vertexShaderCode.empty() || fragmentShaderCode.empty())
     {
@@ -84,25 +86,28 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
     // Use the shader program
     glUseProgram(m_ShaderProgramID);
 
-    // model
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position, 0.0f));
-    // glm::rotate(model, radian, axis)
-    model =
-        glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::vec3(size, 1.0f));
+    {
+        // model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(position, 0.0f));
+        // glm::rotate(model, radian, axis)
+        model = glm::rotate(model, glm::radians(rotation),
+                            glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(size, 1.0f));
 
-    // projection
-    float aspectRatio = 1280.0f / 720.0f;
-    glm::mat4 projection =
-        glm::ortho(-aspectRatio, aspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
+        // projection
+        float aspectRatio = 1280.0f / 720.0f;
+        glm::mat4 projection =
+            glm::ortho(-aspectRatio, aspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
 
-    glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgramID, "u_model"), 1,
-                       GL_FALSE, &model[0][0]);
-    glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgramID, "u_projection"),
-                       1, GL_FALSE, &projection[0][0]);
-    glUniform4fv(glGetUniformLocation(m_ShaderProgramID, "u_color"), 1,
-                 &color[0]);
+        glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgramID, "u_model"),
+                           1, GL_FALSE, &model[0][0]);
+        glUniformMatrix4fv(
+            glGetUniformLocation(m_ShaderProgramID, "u_projection"), 1,
+            GL_FALSE, &projection[0][0]);
+        glUniform4fv(glGetUniformLocation(m_ShaderProgramID, "u_color"), 1,
+                     &color[0]);
+    }
 
     // Bind the VAO for the mesh
     glBindVertexArray(mesh.VAO);
@@ -116,23 +121,6 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
     // Unbind the VAO and shader program
     glBindVertexArray(0);
     glUseProgram(0);
-}
-
-std::string ShapeRenderer::ReadFileAsString(const std::string& filePath)
-{
-    std::ifstream inputFileStream(filePath);
-
-    if (inputFileStream.is_open() == false)
-    {
-        std::cerr << "Failed to open file: " << filePath << std::endl;
-        return std::string();
-    }
-
-    std::stringstream stringStream;
-    stringStream << inputFileStream.rdbuf();
-    inputFileStream.close();
-
-    return stringStream.str();
 }
 
 } // namespace Citadel

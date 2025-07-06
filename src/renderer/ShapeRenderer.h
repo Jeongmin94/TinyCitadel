@@ -19,9 +19,6 @@ public:
               const glm::vec2& size, float rotation, const glm::vec4& color);
 
 private:
-    std::string ReadFileAsString(const std::string& filePath);
-
-private:
     GLuint m_ShaderProgramID = 0;
     GLuint m_VertexShaderID = 0;
     GLuint m_FragmentShaderID = 0;
