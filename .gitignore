@@ -13,3 +13,19 @@
 
 # cursor
 .cursor/
+
+# --- clangd 및 LSP 관련 파일 ---
+compile_commands.json
+.clangd
+.clangd/
+.cache/
+
+# --- 기타 빌드 관련 파일 ---
+Makefile
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles/
+
+# --- 프로젝트 파일 ---
+*.cpp
+*.h
