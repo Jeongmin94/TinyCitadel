@@ -7,6 +7,7 @@
 
 #include "Mesh.h"
 #include "ShapeRenderer.h"
+#include "core/Transform.h"
 
 #include <CitadelPhysicsEngine2D/core.h>
 
@@ -45,8 +46,16 @@ private:
     const Window* m_Window;
 
 private:
-    Mesh m_Mesh;
     ShapeRenderer m_ShapeRenderer;
+
+private:
+    Mesh m_Mesh;
+    Transform m_Transform;
+    glm::vec4 m_Color;
+
+    Mesh m_Rect;
+    Transform m_RectTransform;
+    glm::vec4 m_RectColor;
 };
 
 } // namespace Citadel

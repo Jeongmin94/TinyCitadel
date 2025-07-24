@@ -1,3 +1,4 @@
+#include "core/Transform.h"
 #include "pch.h"
 
 #include "ShapeRenderer.h"
@@ -68,6 +69,12 @@ void ShapeRenderer::Init()
     std::cout << "Shader Program Link Success" << std::endl;
     glDeleteShader(m_VertexShaderID);
     glDeleteShader(m_FragmentShaderID);
+
+    // Test
+    {
+        // transform
+        m_Transform = Transform::Default();
+    }
 }
 
 void ShapeRenderer::Shutdown()
@@ -85,12 +92,15 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
 {
     // Use the shader program
     glUseProgram(m_ShaderProgramID);
-
     {
-        // model
-        glm::mat4 model = glm::mat4(1.0f);
+        // model(scale, rotate, translate)
+        // OpenGL - column major order
+        glm::mat4 model = glm::mat4(1.0f); // identity matrix
+
         model = glm::translate(model, glm::vec3(position, 0.0f));
+
         // glm::rotate(model, radian, axis)
+        // - 2D라서 Z 기준으로만 회전
         model = glm::rotate(model, glm::radians(rotation),
                             glm::vec3(0.0f, 0.0f, 1.0f));
         model = glm::scale(model, glm::vec3(size, 1.0f));
@@ -102,9 +112,11 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
 
         glUniformMatrix4fv(glGetUniformLocation(m_ShaderProgramID, "u_model"),
                            1, GL_FALSE, &model[0][0]);
+
         glUniformMatrix4fv(
             glGetUniformLocation(m_ShaderProgramID, "u_projection"), 1,
             GL_FALSE, &projection[0][0]);
+
         glUniform4fv(glGetUniformLocation(m_ShaderProgramID, "u_color"), 1,
                      &color[0]);
     }
@@ -121,6 +133,13 @@ void ShapeRenderer::Draw(const Mesh& mesh, const glm::vec2& position,
     // Unbind the VAO and shader program
     glBindVertexArray(0);
     glUseProgram(0);
+}
+
+void ShapeRenderer::Draw(const Mesh& mesh, const Transform& transform,
+                         const glm::vec4& color)
+{
+    ShapeRenderer::Draw(mesh, transform.m_Position, transform.m_Scale,
+                        transform.m_Rotation, color);
 }
 
 } // namespace Citadel

@@ -42,6 +42,52 @@ Mesh ShapeFactory::CreateTriangle()
     return mesh;
 };
 
+Mesh ShapeFactory::CreateRectangle(GLfloat width, GLfloat height)
+{
+    Mesh mesh;
+
+    GLfloat halfWidth = width / 2.0f;
+    GLfloat halfHeight = height / 2.0f;
+
+    std::vector<glm::vec3> vertices = {
+        glm::vec3(-halfWidth, -halfHeight, 0.0f), // left bottom
+        glm::vec3(halfWidth, -halfHeight, 0.0f),  // right bottom
+        glm::vec3(halfWidth, halfHeight, 0.0f),   // right top
+        glm::vec3(-halfWidth, halfHeight, 0.0f),  // left top
+    };
+
+    // left bottom, right top, left top
+    // left bottom, right bottom, right top
+    std::vector<GLint> indices = {
+        0, 2, 3, 0, 1, 2,
+    };
+    mesh.indexCount = indices.size();
+
+    // generate VAO, VBO, EBO
+    glGenVertexArrays(1, &mesh.VAO);
+    glGenBuffers(1, &mesh.VBO);
+    glGenBuffers(1, &mesh.EBO);
+
+    // bind VAO
+    glBindVertexArray(mesh.VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3),
+                 vertices.data(), GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
+                 indices.data(), GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3),
+                          (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+
+    return mesh;
+}
+
 Mesh ShapeFactory::CreateCircle(GLuint segments, GLfloat radius)
 {
     Mesh mesh;

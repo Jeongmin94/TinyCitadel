@@ -63,6 +63,7 @@ add_executable(${EXECUTABLE_NAME}
 
     src/core/Application.cpp
     src/core/Window.cpp
+    src/core/Transform.cpp
 
     src/utils/FileUtils.cpp
 
